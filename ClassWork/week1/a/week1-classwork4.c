@@ -1,3 +1,5 @@
+// Name: Nayan
+
 // Program to determine whether an integer is odd or even 
 
 #include <stdio.h>
