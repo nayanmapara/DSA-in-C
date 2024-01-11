@@ -16,23 +16,30 @@ int main()
   printf("Enter Starting Value for Hailstone series: ");
   scanf("%d", &number);
   
-  while(//test for ground state)
+  printf("%d", number);
+  while(number > 1)//test for ground state)
   {
      // display current number
-     if (//ground state reached)
+     if (number == 1)//ground state reached)
      {
        // end the sequence
+       break;
      }
-     else if (// test if number is even)
+     else if (number % 2 == 0)// test if number is even)
      { 
        // add code to shrink number down ; 
+       number = number / 2;
+       printf(" %d", number);
      }
      else
      { 
        // add code to grow number up ;
+       number = (number*3)+1;
+       printf(" %d", number);
      }
   }
-  
+     printf("\n");
+
 }
 
 
