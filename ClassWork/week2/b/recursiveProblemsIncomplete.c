@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 
-unsigned int factorial (unsigned int number);
+unsigned long int factorial (unsigned long int number);
 int power (int base, int exp);
 int multiply(int x, int y);
 int divide (int numerator, int denominator);
@@ -14,37 +14,38 @@ int sumNatural(int n);
 
 int main()
 {
-    int result = 0;
+    // unsigned long int result = 0; // For fractorial
+    int result = 0; 
     
-    result = factorial(5);
-    //result = power(4,3);
+    // result = factorial(20);
+    result = power(4,3);
     //result = multiply(4,3);
     //result = divide(41,3);
     //result = findSum(583);
     
-    printf("The Result is %d \n", result);
+    // printf("The Result is %ld \n", result); // For factorial 
+    printf("The Result is %d \n", result); 
     
 
 }
 
-unsigned int factorial (unsigned int number)
-{
-  if ( number <= 1)
-    return 1;
-  else
-    return number * factorial(number-1); 
-}
-
-
-// int power (int base, int exp)
+// unsigned long int factorial (unsigned long int number)
 // {
-//   if ( )
-//     // return 
-//   else if ( )
-//       // return 
-//     else
-//        // return 
+//   if ( number <= 1)
+//     return 1;
+//   else
+//     return number * factorial(number-1); 
 // }
+
+int power (int base, int exp)
+{
+  if (exp == 0)
+    return 1;
+  else if (exp == 1)
+      return base;
+    else
+       return base * power(base,exp-1);
+}
 
 // // Multiply by using a series of additions
 // int multiply(int x, int y)
