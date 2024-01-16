@@ -21,7 +21,9 @@ int main()
     // result = power(4,3);
     // result = multiply(4,3);
     // result = divide(41,3);
-    result = findSumOfDigits(583);
+    // result = findSumOfDigits(583);
+    // result = countDigits(5833289);
+    result = sumNatural(5);
     
     // printf("The Result is %ld \n", result); // For factorial 
     printf("The Result is %d \n", result); 
@@ -74,5 +76,18 @@ int findSumOfDigits(int n)
      return n%10 + findSumOfDigits(n/10);
 } 
 
+int countDigits(int n)
+{
+  if(n == 0)
+    return 0;
+  else
+    return 1 + countDigits(n/10);
+}
 
-
+int sumNatural(int n)
+{
+  if (n == 0)
+    return 0;
+  else
+    return n + sumNatural(n-1);
+}
