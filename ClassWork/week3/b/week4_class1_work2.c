@@ -9,12 +9,15 @@ int main (void)
    int *nPtr;
    
    //Setup Pointer to Point to the Array
+   nPtr = numbers;
+
    
    // display values using array subscripting
    puts("Displaying values using Array Subscripting: \n");
    for(i=0; i<5; i++)
    {
       // Add code here
+      printf("%d ", numbers[i]);
    }   
    puts("");
    
@@ -24,6 +27,7 @@ int main (void)
    for(i=0; i<5; i++)
    {
       // Add code here
+      printf("%d ", nPtr[i]);
    }   
    puts("");
    
@@ -35,6 +39,7 @@ int main (void)
    for(i=0; i<5; i++)
    {
       // Add code here
+      printf("%d ", *(numbers+i));
    }   
    puts("");
    
@@ -46,6 +51,7 @@ int main (void)
    for(i=0; i<5; i++)
    {
       // Add code here
+      printf("%d ", *(nPtr+i));
    }   
    puts("");
    

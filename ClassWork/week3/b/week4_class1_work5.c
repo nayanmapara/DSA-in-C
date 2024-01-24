@@ -17,9 +17,9 @@ int main( void )
 // convert string to uppercase letters
 void convertToUppercase( char *sPtr )
 {
-   while ( //current character is not '\0' )
-       // convert to uppercase
-       // make sPtr point to the next character
+   while ( *sPtr != '\0' ) //current character is not '\0' )
+   {  *sPtr = toupper(*sPtr);     // convert to uppercase
+       sPtr++;// make sPtr point to the next character
    } // end while
 } // end function convertToUppercase
 

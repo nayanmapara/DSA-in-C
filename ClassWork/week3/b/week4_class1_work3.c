@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 // function prototype for a pass-by-value
+int increaseByValue(int value);
 
 int main(void)
 {
@@ -11,9 +12,14 @@ int main(void)
    scanf("%d", &value);
 
    // add code for function call here 
+   answer = increaseByValue(value);
 
-   printf("The answer is %d: \n", answer);
+   printf("The value is %d and The answer is %d: \n", value, answer);
 }
 
 // Implement function definition here
+int increaseByValue(int value)
+{
+   return value * 1.10;
+}
 
