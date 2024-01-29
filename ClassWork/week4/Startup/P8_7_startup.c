@@ -12,8 +12,10 @@ int main( void )
    for ( i = 1; i <= 4; ++i ) { 
       printf( "%s", "Enter an integer string: " );
       // read string here
+      fgets( stringValue, 80, stdin);
 
       // converts stringValue to integer and accumulate sum
+      sum += (int) strtol(stringValue, NULL, 0);
       
    } // end for
    

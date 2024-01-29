@@ -12,9 +12,11 @@ int main( void )
    for ( i = 1; i <= 4; ++i ) { 
       printf( "%s", "Enter a floating point string: " );
       // Using fgets to get string
+      fgets( stringValue, 80, stdin);
 
       // use strtod() to convert stringValue to a floating-point value
       // Accumulate total
+      sum += strtod( stringValue, NULL);
    } // end for
    
    printf( "\nThe total of the values is %f\n", sum );
