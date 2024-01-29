@@ -9,12 +9,12 @@ int main( void )
    
    //char *remainderPtr=NULL; // create char pointer
    //int x; // variable to hold converted sequence
-   //long int y;
+   long int y;
    //unsigned long int w;
    //unsigned int z;
    
    //x = (int)strtol( string,NULL,0 );
-   //y = strtol( string,NULL, 0 );
+   y = strtol( string,NULL, 0 );
    //w = strtoul( string, NULL, 0 );
    //z = (int)strtoul( string, NULL, 0 );  
 
