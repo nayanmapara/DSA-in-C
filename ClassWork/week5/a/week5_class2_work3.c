@@ -8,8 +8,9 @@ Write a program that creates a structure called "Friends". You should house at l
 // structure definition
 struct friends
 { 
-  
-
+  unsigned int id;
+  char name[20];
+  float price;
 };
 
 // structure renaming
@@ -17,6 +18,27 @@ typedef struct friends Friends;
 
 int main ()
 {
+    size_t i;
+    float totalCost = 0;
+    Friends any[N];
 
+    for (i = 0; i < N; i++)
+    {
+        printf("Enter ID of friend #%Zu: ", i + 1);
+        scanf("%u", &any[i].id);
 
+        printf("Enter Name of friend #%Zu: ", i + 1);
+        scanf("%19s", any[i].name);
+
+        printf("Enter the price to get to friend #%Zu: ", i + 1);
+        scanf("%f", &any[i].price);
+    }
+
+    printf("ID\tName\tPrice\n");
+    for (i = 0; i < N; i++)
+    {
+        printf("%u\t%s\t%.2f\n", any[i].id, any[i].name, any[i].price);
+        totalCost += any[i].price;
+    }
+    printf("Total cost: %.2f\n", totalCost);
 }
