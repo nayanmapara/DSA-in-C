@@ -11,7 +11,6 @@ void printTable(double sales[NUM_PRODUCTS][NUM_SALESPERSON]);
 int main() {
     double sales[NUM_PRODUCTS][NUM_SALESPERSON] = {0.0};
 
-    // Read sales information for last month
     for (int i = 0; i < NUM_SALESPERSON; ++i) {
         for (int j = 0; j < NUM_PRODUCTS; ++j) {
             printf("Enter total sales for Salesperson %d and Product %d: ", i + 1, j + 1);
@@ -32,20 +31,23 @@ void printTable(double sales[NUM_PRODUCTS][NUM_SALESPERSON]) {
     printf("\tTotal\n");
 
     double totalSales[NUM_PRODUCTS] = {0.0};
+    double columnTotal[NUM_SALESPERSON] = {0.0};
     for (int i = 0; i < NUM_PRODUCTS; ++i) {
         printf("Product %d\t\t\t", i + 1);
         double rowTotal = 0.0;
         for (int j = 0; j < NUM_SALESPERSON; ++j) {
             printf("$%.2lf\t\t", sales[i][j]);
             rowTotal += sales[i][j];
+            columnTotal[j] += sales[i][j];
             totalSales[i] += sales[i][j];
         }
         printf("$%.2lf\n", rowTotal);
     }
 
-    printf("Grand Total:\t");
+    printf("Total\t\t\t\t");
     double grandTotal = 0.0;
-    for (int i = 0; i < NUM_PRODUCTS; ++i) {
+    for (int i = 1; i < NUM_PRODUCTS; ++i) {
+        printf("$%.2lf\t\t", columnTotal[i-1]);
         grandTotal += totalSales[i];
     }
 
