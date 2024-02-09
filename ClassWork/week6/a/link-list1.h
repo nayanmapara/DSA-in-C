@@ -125,6 +125,32 @@ void printList(ItemPtr sPtr)
   }
 }
 
+void viewItem(ItemPtr sPtr, int value)
+{
+  ItemPtr currentPtr = sPtr;
+  int position = 0;
+  if(sPtr == NULL)
+  {
+    puts("List is Empty... Nothing to View");
+    return;
+  }
+  else{
+    while(currentPtr != NULL && value != currentPtr->data)
+    {
+      currentPtr = currentPtr->nextPtr;
+      position++;
+    }
+    if(currentPtr == NULL)
+    {
+      printf("%d is [not] found in the list\n", value);
+    }
+    else{
+      printf("%d is found at position %d in the list\n", currentPtr->data, position+1);
+    }
+  }
+}
+  
+
 void menu () 
 {
   printf ("\t1: Insert Item into Ordered List\n");

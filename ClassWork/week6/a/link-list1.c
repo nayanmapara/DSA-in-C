@@ -27,10 +27,10 @@ int main ()
            printList (startPtr);
            printf ("\n");
                break;
-       case 3: //printf ("\nEnter Item Number to View : ");
-           //scanf ("%d", &value);
-           //viewItem (startPtr, value);
-           //printf ("\n");
+       case 3: printf ("\nEnter Item Number to View : ");
+           scanf ("%d", &value);
+           viewItem (startPtr, value);
+           printf ("\n");
            break;
        case 4: printList (startPtr);
            printf ("\n");
