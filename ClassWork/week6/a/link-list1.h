@@ -16,7 +16,7 @@ typedef struct item *ItemPtr;
 ItemPtr makeItem(int value);
 ItemPtr addItem(ItemPtr sPtr, int value);
 void printList(ItemPtr sPtr);
-ItemPtr removeItem (ItemPtr, int value);
+ItemPtr removeItem(ItemPtr sPtr, int value);
 //viewItem ();
 void menu ();
  
@@ -28,7 +28,7 @@ void menu ();
 //viewItem (){}
 ItemPtr makeItem(int value)
 {
-  ItemPtr newPtr = (ItemPtr) malloc(sizeof(Item));
+  ItemPtr newPtr = malloc(sizeof(Item));
   if(newPtr == NULL)
   {
      puts("Memory Issues... Item Not Created");
@@ -72,9 +72,10 @@ ItemPtr removeItem(ItemPtr sPtr, int value)
   previousPtr = NULL;
   currentPtr = sPtr;
   // revisit here
-  if (sPtr = NULL)
+  if (sPtr == NULL)
   {
     puts("Nothing to print");
+    return sPtr;
   }
 
   while (currentPtr != NULL && value != currentPtr->data)
@@ -93,10 +94,14 @@ ItemPtr removeItem(ItemPtr sPtr, int value)
     printf("Node %d is being deleted...\n", tempPtr->data);// inform user
     sPtr = sPtr->nextPtr;
     free(tempPtr);
-    printf("Node %d has been deleted", value);
+    
   }
   else{ // node found elsewhere in list
-
+    tempPtr = currentPtr;
+    printf("Node %d is being deleted...\n", tempPtr->data);
+    previousPtr->nextPtr = currentPtr->nextPtr;
+    free(tempPtr);
+    printf("Node %d has been deleted", value);
   }
   return sPtr;
 }
@@ -106,7 +111,7 @@ void printList(ItemPtr sPtr)
   ItemPtr tempPtr = sPtr;
   if(tempPtr == NULL)
   {
-     puts("List is Empty... Nothing to Delete");
+     puts("List is Empty... Nothing to Print");
      return;
   }
   else{
@@ -128,4 +133,5 @@ void menu ()
   printf ("\t4: Printing the List\n");
   printf ("\t5: Exit\n");
   printf ("\tEnter Choice: ");
-}
+} 
+ 
