@@ -19,8 +19,8 @@ typedef struct item *ItemPtr;
 ItemPtr makeItem(int value, char section, char name[20]);
 ItemPtr addItem(ItemPtr sPtr, int value, char section, char name[20]);
 void printList(ItemPtr sPtr);
-//removeItem ();
-//viewItem ();
+ItemPtr removeItem(ItemPtr sPtr, int value);
+void viewItem (ItemPtr sPtr, int value);
 void menu ();
  
 /*******Function Definitions******/
@@ -89,6 +89,71 @@ void printList(ItemPtr sPtr)
   
   }
 }
+
+ItemPtr removeItem(ItemPtr sPtr, int value)
+{
+  ItemPtr previousPtr, currentPtr, tempPtr;
+  previousPtr = NULL;
+  currentPtr = sPtr;
+  // revisit here
+  if (sPtr == NULL)
+  {
+    puts("Nothing to print");
+    return sPtr;
+  }
+
+  while (currentPtr != NULL && value != currentPtr->itemId)
+  {
+     previousPtr = currentPtr;
+     currentPtr = currentPtr->nextPtr;
+  }
+  
+  // exit traversal
+  if(currentPtr == NULL) // check if node not in list
+  {
+    printf("%d is [not] found in the list\n", value);
+  }
+  else if (previousPtr == NULL){ // node found at front of list
+    tempPtr = sPtr;
+    printf("Node %d is being deleted...\n", tempPtr->itemId);// inform user
+    sPtr = sPtr->nextPtr;
+    free(tempPtr);
+    
+  }
+  else{ // node found elsewhere in list
+    tempPtr = currentPtr;
+    printf("Node %d is being deleted...\n", tempPtr->itemId);
+    previousPtr->nextPtr = currentPtr->nextPtr;
+    free(tempPtr);
+    printf("Node %d has been deleted", value);
+  }
+  return sPtr;
+}
+
+void viewItem (ItemPtr sPtr, int value)
+{
+  ItemPtr tempPtr = sPtr;
+  int position = 0;
+  if(tempPtr == NULL)
+  {
+     puts("List is Empty... Nothing to Print");
+     return;
+  }
+  else{
+     while(tempPtr != NULL)
+     {
+       if (tempPtr->itemId == value)
+       {
+         printf("Node %d is found at position %d\n", value, position+1);
+         return;
+       }
+       tempPtr = tempPtr->nextPtr;
+        position++;
+     }
+     printf("%d is [not] found in the list\n", value);
+  }
+}
+
 
 void menu () 
 {
