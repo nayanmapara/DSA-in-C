@@ -154,7 +154,6 @@ void viewItem (ItemPtr sPtr, int value)
   }
 }
 
-
 void menu () 
 {
   printf ("\t1: Insert Item into Ordered List\n");
@@ -163,6 +162,4 @@ void menu ()
   printf ("\t4: Printing the List\n");
   printf ("\t5: Exit\n");
   printf ("\tEnter Choice: ");
-} 
- 
-
+}
