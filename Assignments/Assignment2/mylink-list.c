@@ -1,51 +1,69 @@
-//Activity 1: include the link-list header file
 #include "mylink-list.h"
  
 int main () 
 {
-  //Activity 2: creating list pointer
-  ItemPtr startPtr;
-  //Activity 3: initialising the start of the list 
-  startPtr = NULL;
-      
-  int value, choice;
-  char section;
-  char name[20];
-  menu ();
+  //define pointers
+  CarPtr strPtr;
+  strPtr = NULL;
+  
+  //var for menu choice
+  int choice;
+
+  //fields for creating car object
+  char VIN[18], make[30], model[30];
+  char bodyStyle;
+  unsigned int year;
+  float price;
+
+  displayMenu ();
   scanf ("%d", &choice);
+
+  //Exit when user selects 5
   while (choice != 5)
   {
-    switch (choice) //Activity 4: Test your link list tasks
+    switch (choice) 
     {
-       case 1: printf ("\nEnter Value for Item for Insertion: ");
-               scanf ("%d %c%19s", &value,&section,name);
-               startPtr = addItem (startPtr, value, section, name);
-	       printList (startPtr);
-	       printf ("\n");
-	       break;
-       case 2: printf ("\nEnter Item for deletion : ");
-	       scanf ("%d", &value);
-	       startPtr = removeItem (startPtr, value);
-	       printList (startPtr);
-	       printf ("\n");
+       case 1: //Add new car
+          printf("\nEnter car VIN: ");
+          scanf("%17s", VIN);
+          //Search for if VIN exists
+          if(uniqueVIN(strPtr, VIN) == false){
+            break;
+          }
+          printf("Enter Make: ");
+          scanf("%29s", make);
+          printf("Enter Model: ");
+          scanf("%29s", model);
+          printf("Enter year: ");
+          scanf("%u", &year);
+          printf("Enter bodystyle as character (C - Car, S - SUV, T - Truck): ");
+          scanf(" %c", &bodyStyle);
+          printf("Enter price: $");
+          scanf("%f", &price);
+          strPtr = addCar(strPtr,VIN, make, model, bodyStyle, year, price);
+            printCarList (strPtr);
+            printf ("\n");
+           break;
+       case 2: printf ("\nDelete car by VIN: "); //Delete car by VIN
+           scanf ("%17s", VIN);
+           strPtr = removeCar(strPtr, VIN);
+          printCarList(strPtr);
+           printf ("\n");
                break;
-       case 3: printf ("\nEnter Item Number to View : ");
-	       scanf ("%d", &value);
-	       viewItem (startPtr, value);
-	       printf ("\n");
-	       break;
-       case 4: printList (startPtr);
-	       printf ("\n");
-	       break;
+       case 3: printf ("\nSearch Car by VIN : "); //Search car by VIN
+           scanf ("%s", VIN);
+           viewCar(strPtr, VIN);
+           printf ("\n");
+           break;
+       case 4: printCarList (strPtr); //Print full list
+           printf ("\n");
+           break;
        default:
-	       printf ("Invalid Option... Please Try Again \n");
-	       break;
+           printf ("Invalid Option... Please Try Again \n");
+           break;
     }
-      
-    menu ();
+    displayMenu ();
     scanf ("%d", &choice);
   }
   
-}// end of main
-
-
+}

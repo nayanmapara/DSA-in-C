@@ -1,165 +1,200 @@
-// Header file containing link-list definitions & implementation methods
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
-// Structure Definition
-struct item{ // items on a shelf in a supermarket
-   int itemId;
-   char itemSection;
-   char itemName[20];
-   struct item *nextPtr;
+//Define car with paramater types
+struct car{
+  char carVIN[18];
+  char carMake[30];
+  char carModel[30];
+  char carBodyStyle;
+  unsigned int carYear;
+  float carPrice;
+  struct car *nextPtr;
 };
 
-// Structure renaming
-typedef struct item Item;
-typedef struct item *ItemPtr;
+typedef struct car Car;
+typedef struct car *CarPtr;
 
-/*Function Prototypes*/
-ItemPtr makeItem(int value, char section, char name[20]);
-ItemPtr addItem(ItemPtr sPtr, int value, char section, char name[20]);
-void printList(ItemPtr sPtr);
-ItemPtr removeItem(ItemPtr sPtr, int value);
-void viewItem (ItemPtr sPtr, int value);
-void menu ();
+//Define function prototypes
+CarPtr makeCar(char VIN[17], char make[30], char model[30], char bodyStyle, unsigned int year, float price);
+CarPtr addCar(CarPtr startPtr, char VIN[17], char make[30], char model[30], char bodyStyle, unsigned int year, float price);
+CarPtr removeCar(CarPtr startPtr, char VIN[17]);
+void viewCar(CarPtr startPtr, char VIN[17]);
+bool uniqueVIN(CarPtr startPtr, char VIN[17]);
+void printCarList(CarPtr startPtr);
+void displayMenu();
  
-/*******Function Definitions******/
-//makeItem () {}
-//addItem () {}
-//printList () {}
-//removeItem (){}
-//viewItem (){}
-ItemPtr makeItem(int value, char section, char name[20])
+//Make car (Used by addCar)
+CarPtr makeCar(char VIN[17], char make[30], char model[30], char bodyStyle, unsigned int year, float price)
 {
-  ItemPtr newPtr = malloc(sizeof(Item));
+  CarPtr newPtr = malloc(sizeof(Car));
   if(newPtr == NULL)
   {
-     puts("Memory Issues... Item Not Created");
+    puts("Issues with memory! Car could not be created...");
   }
   else{
-     newPtr->itemId = value;
-     newPtr->itemSection = section;
-     strcpy (newPtr->itemName,name);
-     newPtr->nextPtr = NULL;
+    strcpy(newPtr->carVIN, VIN);
+    strcpy(newPtr->carMake, make);
+    strcpy(newPtr->carModel, model);
+    newPtr->carBodyStyle = bodyStyle;
+    newPtr->carYear = year;
+    newPtr->carPrice = price;
   }
   return newPtr;
 }
 
-ItemPtr addItem(ItemPtr sPtr, int value, char section, char name[20])
+//Add Car
+CarPtr addCar(CarPtr startPtr, char VIN[17], char make[30], char model[30], char bodyStyle, unsigned int year, float price)
 {
-  ItemPtr previousPtr, currentPtr, newPtr;
+  CarPtr previousPtr, currentPtr, newPtr;
   previousPtr = NULL;
-  currentPtr = sPtr;
-  newPtr = makeItem(value, section, name);
-  
-  while (currentPtr != NULL && value > currentPtr->itemId)
+  currentPtr = startPtr;
+  newPtr = makeCar(VIN, make, model, bodyStyle, year, price);
+
+  while (currentPtr != NULL && strcmp(currentPtr->carVIN, VIN) > 0)
   {
-     previousPtr = currentPtr;
-     currentPtr = currentPtr->nextPtr;
+    previousPtr = currentPtr;
+    currentPtr = currentPtr->nextPtr;
   }
-  
-  // exit traversal
+
   if(previousPtr == NULL)
   {
-    newPtr->nextPtr = sPtr;
-    sPtr = newPtr;
+    newPtr->nextPtr = startPtr;
+    startPtr = newPtr;
   }
   else{
     previousPtr->nextPtr = newPtr;
     newPtr->nextPtr = currentPtr;
   }
-  return sPtr;
+  return startPtr;
 }
 
-void printList(ItemPtr sPtr)
+//Print full inventory
+void printCarList(CarPtr starPtr)
 {
-  ItemPtr tempPtr = sPtr;
+  CarPtr tempPtr = starPtr;
   if(tempPtr == NULL)
   {
-     puts("List is Empty... Nothing to Print");
-     return;
+    puts("Inventory is empty, please add some cars!");
+    return;
   }
   else{
-     puts("The Items in the List are");
-     while(tempPtr != NULL)
-     {
-       printf("%d %c %s\n", tempPtr->itemId,tempPtr->itemSection, tempPtr->itemName );
-       tempPtr = tempPtr->nextPtr;
-     }
-  
+    puts("Cars in inventory are:");
+    puts("VIN\t\t\tMake\tModel\tBody\tYear\tPrice");
+    while(tempPtr != NULL)
+    {
+      printf("%s\t%s\t%s\t%c\t%u\t$%.2f\n", tempPtr->carVIN, tempPtr->carMake, tempPtr->carModel, tempPtr->carBodyStyle, tempPtr->carYear, tempPtr->carPrice);
+      tempPtr = tempPtr->nextPtr;
+    }
   }
 }
 
-ItemPtr removeItem(ItemPtr sPtr, int value)
+//Delete car by VIN
+CarPtr removeCar(CarPtr startPtr, char VIN[17])
 {
-  ItemPtr previousPtr, currentPtr, tempPtr;
+  CarPtr previousPtr, currentPtr, tempPtr;
   previousPtr = NULL;
-  currentPtr = sPtr;
-  // revisit here
-  if (sPtr == NULL)
+  currentPtr = startPtr;
+  
+  if (startPtr == NULL)
   {
-    puts("Nothing to print");
-    return sPtr;
+    puts("Nothing to delete!");
+    return startPtr;
   }
 
-  while (currentPtr != NULL && value != currentPtr->itemId)
+  while (currentPtr != NULL &&  strcmp(currentPtr->carVIN, VIN) != 0)
   {
      previousPtr = currentPtr;
      currentPtr = currentPtr->nextPtr;
   }
-  
-  // exit traversal
-  if(currentPtr == NULL) // check if node not in list
+
+  if(currentPtr == NULL) 
   {
-    printf("%d is [not] found in the list\n", value);
+    printf("Unable to find VIN %s in Inventory\n", VIN);
   }
-  else if (previousPtr == NULL){ // node found at front of list
-    tempPtr = sPtr;
-    printf("Node %d is being deleted...\n", tempPtr->itemId);// inform user
-    sPtr = sPtr->nextPtr;
+  else if (previousPtr == NULL){ 
+    tempPtr = startPtr;
+    printf("Car %s %s %s %c %u $%.2f is being deleted...\n", tempPtr->carVIN, tempPtr->carMake, tempPtr->carModel, tempPtr->carBodyStyle, tempPtr->carYear, tempPtr->carPrice);
+    startPtr = startPtr->nextPtr;
     free(tempPtr);
     
   }
-  else{ // node found elsewhere in list
+  else{ 
     tempPtr = currentPtr;
-    printf("Node %d is being deleted...\n", tempPtr->itemId);
+    printf("Car %s %s %s %c %u $%.2f is being deleted...\n", tempPtr->carVIN, tempPtr->carMake, tempPtr->carModel, tempPtr->carBodyStyle, tempPtr->carYear, tempPtr->carPrice);
     previousPtr->nextPtr = currentPtr->nextPtr;
     free(tempPtr);
-    printf("Node %d has been deleted", value);
   }
-  return sPtr;
+  return startPtr;
 }
 
-void viewItem (ItemPtr sPtr, int value)
+//View car by VIN
+void viewCar(CarPtr startPtr, char VIN[18])
 {
-  ItemPtr tempPtr = sPtr;
+  CarPtr currentPtr = startPtr;
   int position = 0;
-  if(tempPtr == NULL)
+
+  if(startPtr == NULL)
   {
-     puts("List is Empty... Nothing to Print");
-     return;
+    puts("Inventory empty, please add cars!");
+    return;
+  }
+
+  while (currentPtr != NULL &&  strcmp(currentPtr->carVIN, VIN) != 0)
+  {
+     currentPtr = currentPtr->nextPtr;
+     position++;
+  }
+
+  if(currentPtr == NULL)
+  {
+    printf("No car with VIN %s was found in inventory...", VIN);
   }
   else{
-     while(tempPtr != NULL)
-     {
-       if (tempPtr->itemId == value)
-       {
-         printf("Node %d is found at position %d\n", value, position+1);
-         return;
-       }
-       tempPtr = tempPtr->nextPtr;
-        position++;
-     }
-     printf("%d is [not] found in the list\n", value);
+    printf("Car was found at position %d\n", position);
+    puts("VIN\t\t\t    Make\tModel\tBody\tYear\tPrice");
+    printf("%s\t\t\t    %s\t%s\t%c\t%u\t$%.2f\n", currentPtr->carVIN, currentPtr->carMake, currentPtr->carModel, currentPtr->carBodyStyle, currentPtr->carYear, currentPtr->carPrice);
   }
 }
 
-void menu () 
+//Determine if a VIN is in use or not
+bool uniqueVIN(CarPtr startPtr, char VIN[18])
 {
-  printf ("\t1: Insert Item into Ordered List\n");
-  printf ("\t2: Remove Item from List\n");
-  printf ("\t3: View Item from List\n");
-  printf ("\t4: Printing the List\n");
+  CarPtr currentPtr = startPtr;
+  int position = 0;
+
+  if(startPtr == NULL)
+  {
+    return true;
+  }
+
+  while (currentPtr != NULL &&  strcmp(currentPtr->carVIN, VIN) != 0)
+  {
+     currentPtr = currentPtr->nextPtr;
+     position++;
+  }
+
+  if(currentPtr == NULL)
+  {
+    return true;
+  }
+  else{
+    printf("Car with VIN %s already exists!\n", VIN);
+    return false;
+  }
+}
+
+//Display menu options
+void displayMenu () 
+{
+  printf ("\t1: Insert Car into Inventory\n");
+  printf ("\t2: Remove Car from Inventory by VIN\n");
+  printf ("\t3: Search for car by VIN\n");
+  printf ("\t4: Display full inentory\n");
   printf ("\t5: Exit\n");
   printf ("\tEnter Choice: ");
-}
+} 
+ 
+
