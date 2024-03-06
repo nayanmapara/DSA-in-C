@@ -20,7 +20,7 @@ int main(void)
    // pop values and print, ensure stack is non-empty 
    puts("The values in the stack are: ");
   
-   while(!isEmpty/*ensure stack is not empty*/)
+   while(!isEmpty(stackPtr)/*ensure stack is not empty*/)
    {
       //pop all values from stack and print
       printf("%d -->", pop(stackPtr));
