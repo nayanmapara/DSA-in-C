@@ -15,7 +15,7 @@ int main(void) {
 	printf("? ");
 	scanf("%d", &choice);
 	
-	while(choice != 4) {
+	while(choice != 7) {
 	   switch(choice) {
 		case 1:
 			printf("Enter an integer: ");
@@ -42,6 +42,17 @@ int main(void) {
 				puts("The Stack is Empty");
             }
             break;
+		case 4:
+			bottomOfStack(stackPtr);
+			break;
+		case 5:
+			printf("Enter an integer: ");
+			scanf("%d", &value);
+			searchStack(stackPtr, value);
+			break;
+		case 6:
+			printStack(stackPtr);
+			break;
 		default:
 			printf("Invalid choice.\n\n");
 			break;
