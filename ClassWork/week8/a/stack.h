@@ -19,8 +19,8 @@ int isEmpty(StackNodePtr topPtr);
 void topOfStack(StackNodePtr topPtr);
 void printStack(StackNodePtr currentPtr);
 void instructions(void);
-// void bottomOfStack(StackNodePtr topPtr);
-// StackNodePtr searchStack(StackNodePtr topPtr , int value);
+void bottomOfStack(StackNodePtr topPtr);
+StackNodePtr searchStack(StackNodePtr topPtr , int value);
 
 /*.......Function Definitions .....*/
 StackNodePtr push(StackNodePtr topPtr, int info)
@@ -99,5 +99,56 @@ void topOfStack(StackNodePtr topPtr)
 
 void instructions(void)
 {
-	printf("Enter choice:\n1 to push a value on the stack\n2 to pop a value off the stack\n3 Top of the stack \n4 to end the program\n");
+	printf("Enter choice:\n1 to push a value on the stack\n2 to pop a value off the stack\n3 Top of the stack \n4 Bottom of the stack \n5 Search the stack \n6 Print the stack \n7 to end the program\n");
+}
+
+void bottomOfStack(StackNodePtr topPtr)
+{
+	StackNodePtr previousPtr, currentPtr = topPtr;
+
+	while(currentPtr != NULL)
+	{
+		previousPtr = currentPtr;
+		currentPtr = currentPtr->nextPtr;
+	}
+
+	if (previousPtr != NULL)
+	{
+		printf("The value of the bottom of the stack is %d\n", previousPtr->data);
+	}
+	else
+	{
+		puts("The stack is empty");
+	}
+}
+
+
+StackNodePtr searchStack(StackNodePtr topPtr , int value)
+{
+	StackNodePtr currentPtr = topPtr;
+	int position = 1;
+
+	if (currentPtr == NULL)
+	{
+		puts("The stack is empty");
+		return NULL;
+	}
+
+	while (currentPtr != NULL && value != currentPtr->data)
+	{
+		currentPtr = currentPtr->nextPtr;
+	}
+
+	if (currentPtr != NULL)
+	{
+		printf("The value %d is at position %d\n", value, position);
+		return currentPtr;
+	}
+	else
+	{
+		puts("The value is not in the stack");
+		return NULL;
+	}
+
+
 }
