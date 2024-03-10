@@ -23,6 +23,7 @@ int main(void)
    while(!isEmpty(stackPtr)/*ensure stack is not empty*/)
    {
       //pop all values from stack and print
+
       printf("%d --> ", pop(stackPtr));
    }
    puts("End\n\n");
