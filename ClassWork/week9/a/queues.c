@@ -15,7 +15,7 @@ int main( void )
    scanf( "%d", &choice );
 
    // while user does not enter 3
-   while ( choice != 3 ) { 
+   while ( choice != 6 ) { 
 
       switch( choice ) { 
          case 1:
@@ -32,6 +32,18 @@ int main( void )
            }
            printQueue(headPtr);
            break;
+
+         case 3:
+            frontOfQueue(headPtr);
+            break;
+
+         case 4:
+            endOfQueue(tailPtr);
+            break;
+
+         case 5:
+            printQueue(headPtr);
+            break;
          
          default:
             puts( "Invalid choice.\n" );

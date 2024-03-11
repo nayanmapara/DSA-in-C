@@ -18,7 +18,8 @@ void dequeue(QueueNodePtr *headPtr, QueueNodePtr *tailPtr);
 int isEmpty(QueueNodePtr headPtr);
 void printQueue(QueueNodePtr headPtr);
 void instructions(void);
-
+void frontOfQueue(QueueNodePtr headPtr);
+void endOfQueue(QueueNodePtr tailPtr);
 
 /*Function Definitions*/
 
@@ -103,8 +104,32 @@ void instructions( void )
    printf ( "Enter your choice:\n"
            "   1 to add an item to the queue\n"
            "   2 to remove an item from the queue\n"
-           "   3 to end\n" );
+           "   3 front of queue\n"
+           "   4 end of queue\n"
+           "   5 print queue\n"
+           "   6 to end\n" );
 } // end function instructions
 
+void frontOfQueue(QueueNodePtr headPtr)
+{
+   if (headPtr != NULL)
+   {
+      printf("The front of the queue is: %d\n", headPtr->data);
+   }
+   else
+   {
+      puts("The queue is empty.");
+   }
+}
 
-
+void endOfQueue(QueueNodePtr tailPtr)
+{
+   if (tailPtr != NULL)
+   {
+      printf("The end of the queue is: %d\n", tailPtr->data);
+   }
+   else
+   {
+      puts("The queue is empty.");
+   }
+}
