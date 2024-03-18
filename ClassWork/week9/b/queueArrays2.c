@@ -4,14 +4,13 @@ int main(void)
 {
   // define Queue Pointer & Initialize Queue
   QueueTypePtr qPtr = initQueue();
-  int value; 
-  printf("Enter some values, zero to quit :");
-  scanf("%d",&value);
-  while(value != 0)
+  int number; 
+  printf("Enter an Integer At most MAXINT-1:");
+  scanf("%d",&number);
+  while(number > 0)
   {
-     enqueue(qPtr, value);
-     printf("Enter some values, zero to quit :");
-     scanf("%d",&value);
+     enqueue(qPtr, number % 10);
+     number = number / 10;
   }
   puts("The values in the queue are: ");
   while(!isEmpty(qPtr))
