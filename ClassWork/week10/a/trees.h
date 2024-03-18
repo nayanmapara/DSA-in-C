@@ -14,8 +14,10 @@ typedef struct treeNode *TreeNodePtr;
 
 // Function prototypes
 void insertNode(TreeNodePtr *treePtr, int value);
+void insertNodeWithDuplicates(TreeNodePtr *treePtr, int value);
 void preOrder(TreeNodePtr treePtr);
 void inOrder(TreeNodePtr treePtr);
+void inReverseOrder(TreeNodePtr treePtr);
 void postOrder(TreeNodePtr treePtr);
 
 void insertNode(TreeNodePtr *treePtr, int value)
@@ -53,6 +55,37 @@ void insertNode(TreeNodePtr *treePtr, int value)
     }
 }
 
+void insertNodeWithDuplicates(TreeNodePtr *treePtr, int value)
+{
+    if (*treePtr == NULL) // Node can be inserted as a leaf node
+    {
+        *treePtr = (TreeNodePtr) malloc(sizeof(TreeNode));
+        if (*treePtr != NULL)
+        {
+            (*treePtr)->leftPtr = NULL;
+            (*treePtr)->data = value;
+            (*treePtr)->rightPtr = NULL;
+
+        } else {
+            puts("Memory issues... Node not created.");
+        }
+
+        return;
+
+    } else { // otherwise, continue for apporiate place to insert by going left/right
+        if (value <= (*treePtr)->data)
+        {
+            //go left
+            insertNodeWithDuplicates(&((*treePtr)->leftPtr), value);
+
+        } else
+        {
+            //go right
+            insertNodeWithDuplicates(&((*treePtr)->rightPtr), value);
+        } 
+    }
+}
+
 void preOrder(TreeNodePtr treePtr)
 {
     if (treePtr != NULL)
@@ -70,6 +103,16 @@ void inOrder(TreeNodePtr treePtr)
         inOrder(treePtr->leftPtr);
         printf("%d ", treePtr->data);
         inOrder(treePtr->rightPtr);
+    }
+}
+
+void inReverseOrder(TreeNodePtr treePtr)
+{
+    if (treePtr != NULL)
+    {
+        inReverseOrder(treePtr->rightPtr);
+        printf("%d ", treePtr->data);
+        inReverseOrder(treePtr->leftPtr);
     }
 }
 
