@@ -19,6 +19,7 @@ void preOrder(TreeNodePtr treePtr);
 void inOrder(TreeNodePtr treePtr);
 void inReverseOrder(TreeNodePtr treePtr);
 void postOrder(TreeNodePtr treePtr);
+TreeNodePtr binaryTreeSearch(TreeNodePtr treePtr, int key);
 
 void insertNode(TreeNodePtr *treePtr, int value)
 {
@@ -124,4 +125,29 @@ void postOrder(TreeNodePtr treePtr)
         postOrder(treePtr->rightPtr);
         printf("%d ", treePtr->data);
     }
+}
+
+TreeNodePtr binaryTreeSearch(TreeNodePtr treePtr, int key)
+{
+  if (treePtr == NULL)/* implies treePtr is NULL */
+    {
+      // add code here to process search key not found
+      return NULL;
+    }				
+  else if (key == treePtr->data)/* implies (key == treePtr->data) */
+    {
+      // add code here to process search key found
+      return treePtr;
+    }				
+  else if (key < treePtr->data)/* implies (key < treePtr->data) */
+    {
+      // add code here to continue searching left subtree
+      binaryTreeSearch(treePtr->leftPtr, key);
+    }				
+  else   /* implies (key > treePtr->data) */
+    {
+      // add code here to search right tree
+      binaryTreeSearch(treePtr->rightPtr, key);
+             
+    }				
 }

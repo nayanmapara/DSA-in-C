@@ -31,6 +31,34 @@ void inOrder(CarPtr treePtr);
 void inReverseOrder(CarPtr treePtr);
 void postOrder(CarPtr treePtr);
 
+// Determine if a VIN is in use or not
+bool uniqueVIN(CarPtr startPtr, char VIN[18])
+{
+	CarPtr currentPtr = startPtr;
+	int position = 0;
+
+	if (startPtr == NULL)
+	{
+		return true;
+	}
+
+	while (currentPtr != NULL && strcmp(currentPtr->carVIN, VIN) != 0)
+	{
+		// currentPtr = currentPtr->nextPtr;
+		position++;
+	}
+
+	if (currentPtr == NULL)
+	{
+		return true;
+	}
+	else
+	{
+		printf("Car with VIN %s already exists!\n", VIN);
+		return false;
+	}
+}
+
 void insertNode(CarPtr *treePtr, char VIN[17], char make[30], char model[30], char bodyStyle, unsigned int year, float price)
 {
     if (*treePtr == NULL) // Node can be inserted as a leaf node
