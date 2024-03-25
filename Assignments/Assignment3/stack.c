@@ -1,4 +1,4 @@
-#include "car-dealership-stack.h"
+#include "stack.h"
 
 int main()
 {
