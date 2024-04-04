@@ -11,7 +11,7 @@ typedef struct node {
 // Function prototypes
 NodePtr newNode(int key);                             // Create new node
 void printNode(NodePtr frontPtr);                     // Print hash table
-void hashTableInsert(NodePtr hash[N], int key, int size); // Corrected function name
+void hashTableInsert(NodePtr hash[N], int key, int size);
 
 int main() {
     int j, key, count = 0;                            // Declare count and initialize
@@ -24,8 +24,9 @@ int main() {
     }
 
     while (fscanf(in, "%d", &key) == 1) {
-        if (hash[key % N] != NULL) {
-            NodePtr currPtr = hash[key % N];
+        int k = (2 * key + 5) % N;
+        if (hash[k] != NULL) { 
+            NodePtr currPtr = hash[k]; 
             while (currPtr != NULL) {
                 if (currPtr->key == key) {
                     break;
@@ -37,11 +38,11 @@ int main() {
             }
         }
 
-        hashTableInsert(hash, key, N);                // Corrected function name
+        hashTableInsert(hash, key, N);          
         count++;
     }
 
-    printf("There are %d items in the hash table\n", count); // Corrected function name and added newline
+    printf("There are %d items in the hash table\n", count);
     for (j = 0; j < N; j++) {
         printf("Hash [%d] -> ", j);
         printNode(hash[j]);
@@ -51,7 +52,7 @@ int main() {
 }
 
 NodePtr newNode(int key) {
-    NodePtr newNode = malloc(sizeof(Node));          // Use the correct variable name
+    NodePtr newNode = malloc(sizeof(Node));  
     newNode->key = key;
     newNode->nextPtr = NULL;
     return newNode;
@@ -67,7 +68,7 @@ void printNode(NodePtr frontPtr) {
 
 // Rmoving duplicate values from the hash table
 void hashTableInsert(NodePtr hash[N], int key, int size) {
-    int k = key % size;
+    int k = (2 * key + 5) % size;
     NodePtr currPtr = hash[k];
     NodePtr prevPtr = NULL;
 
