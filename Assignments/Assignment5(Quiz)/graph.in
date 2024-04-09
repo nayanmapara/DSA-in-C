@@ -1,0 +1,11 @@
+9
+ExitA ExitB ExitC ExitD ExitE ExitG ExitH ExitJ ExitK
+ExitA 1 ExitB 150
+ExitB 4 ExitA 150 ExitC 40 ExitD 27 ExitE 52
+ExitC 2 ExitB 40 ExitE 15
+ExitD 2 ExitB 27 ExitH 174
+ExitE 3 ExitB 52 ExitC 15 ExitG 82
+ExitG 1 ExitE 82
+ExitH 2 ExitD 174 ExitJ 18
+ExitJ 1 ExitK 17
+ExitK 1 ExitJ 17
